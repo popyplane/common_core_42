@@ -4,9 +4,13 @@ SHELL := /bin/bash
 COMPOSE = docker-compose
 COMPOSE_FILE = srcs/docker-compose.yml
 
-up:
+up: setup-dirs
 	$(COMPOSE) -f $(COMPOSE_FILE) up -d --build
 
+setup-dirs:
+	@mkdir -p $(HOME)/data/mariadb
+	@mkdir -p $(HOME)/data/wordpress
+	
 down:
 	$(COMPOSE) -f $(COMPOSE_FILE) down
 

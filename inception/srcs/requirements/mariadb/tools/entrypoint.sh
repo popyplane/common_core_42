@@ -30,6 +30,8 @@ else
     echo "[entrypoint] Database already initialized. Skipping setup."
 fi
 
+sed -i "s/^bind-address\s*=.*/bind-address = 0.0.0.0/" /etc/mysql/mariadb.conf.d/50-server.cnf
+
 # === Start MariaDB server in foreground ===
 echo "[entrypoint] Starting MariaDB in foreground mode..."
 exec mysqld_safe --console
