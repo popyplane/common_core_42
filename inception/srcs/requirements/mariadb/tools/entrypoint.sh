@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 
 # === Load sensitive values from secrets and store them in environment variables ===
 export MYSQL_ROOT_PASSWORD=$(cat /run/secrets/db_root_password)
