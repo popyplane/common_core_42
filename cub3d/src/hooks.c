@@ -12,32 +12,42 @@
 
 #include "cub3d.h"
 
-int	handle_no_event(void *data)
+static void	set_key(t_game *game, keys_t key, bool value)
 {
-    /* This function needs to exist, but it is useless for the moment */
-	(void) data;
-    return (0);
+	if (key == MLX_KEY_W)
+		game->keys.w = value;
+	else if (key == MLX_KEY_A)
+		game->keys.a = value;
+	else if (key == MLX_KEY_S)
+		game->keys.s = value;
+	else if (key == MLX_KEY_D)
+		game->keys.d = value;
+	else if (key == MLX_KEY_LEFT)
+		game->keys.left = value;
+	else if (key == MLX_KEY_RIGHT)
+		game->keys.right = value;
 }
 
-int	handle_input(int keysym, t_mlx *data)
+void	handle_key(mlx_key_data_t keydata, void *param)
 {
-    if (keysym == XK_Escape)
-        mlx_destroy_window(data->mlx_ptr, data->win_ptr);
-    return (0);
+	t_game	*game;
+
+	game = (t_game *)param;
+	if (keydata.key == MLX_KEY_ESCAPE && keydata.action == MLX_PRESS)
+	{
+		mlx_close_window(game->mlx);
+		return ;
+	}
+	if (keydata.action == MLX_PRESS)
+		set_key(game, keydata.key, true);
+	else if (keydata.action == MLX_RELEASE)
+		set_key(game, keydata.key, false);
 }
 
-int	handle_keypress(int keysym, t_mlx *data)
+void	handle_close(void *param)
 {
-    if (keysym == XK_Escape)
-        mlx_destroy_window(data->mlx_ptr, data->win_ptr);
+	t_game	*game;
 
-    ft_printf("Keypress: %d\n", keysym);
-    return (0);
-}
-
-int	handle_keyrelease(int keysym, void *data)
-{
-	(void) data;
-    ft_printf("Keyrelease: %d\n", keysym);
-    return (0);
+	game = (t_game *)param;
+	mlx_close_window(game->mlx);
 }

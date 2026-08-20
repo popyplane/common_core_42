@@ -12,19 +12,8 @@
 
 #include "cub3d.h"
 
-void	img_pix_put(t_img *img, int x, int y, int color)
+/* Our color values are 0xRRGGBB; MLX42's mlx_put_pixel expects 0xRRGGBBAA. */
+void	img_pix_put(mlx_image_t *img, int x, int y, int color)
 {
-    char    *pixel;
-    int		i;
-
-    i = img->bpp - 8;
-    pixel = img->addr + (y * img->line_len + x * (img->bpp / 8));
-    while (i >= 0)
-    {
-        if (img->endian != 0)
-            *pixel++ = (color >> i) & 0xFF;
-        else
-            *pixel++ = (color >> (img->bpp - 8 - i)) & 0xFF;
-        i -= 8;
-    }
+	mlx_put_pixel(img, (uint32_t)x, (uint32_t)y, ((uint32_t)color << 8) | 0xFF);
 }

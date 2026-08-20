@@ -36,20 +36,37 @@ bool	is_map_line(char *line)
 	return (true);
 }
 
+static char	*dup_trimmed(char *s)
+{
+	size_t	len;
+	char	*copy;
+
+	len = ft_strlen(s);
+	while (len > 0 && (s[len - 1] == '\n' || s[len - 1] == ' '))
+		len--;
+	copy = malloc(len + 1);
+	if (!copy)
+		ft_error("[dup_trimmed(...)] : malloc failed");
+	garbage_collector(copy, false);
+	ft_memcpy(copy, s, len);
+	copy[len] = '\0';
+	return (copy);
+}
+
 void	get_texture_line(t_map *map, char *line)
 {
 	if (ft_strnstr(line, "NO", 2))
-		map->texture->north_wall = line + 3;
+		map->texture->north_wall = dup_trimmed(line + 3);
 	if (ft_strnstr(line, "SO", 2))
-		map->texture->south_wall = line + 3;
+		map->texture->south_wall = dup_trimmed(line + 3);
 	if (ft_strnstr(line, "EA", 2))
-		map->texture->east_wall = line + 3;
+		map->texture->east_wall = dup_trimmed(line + 3);
 	if (ft_strnstr(line, "WE", 2))
-		map->texture->west_wall = line + 3;
+		map->texture->west_wall = dup_trimmed(line + 3);
 	if (ft_strnstr(line, "C", 1))
-		map->texture->ceiling = line + 2;
+		map->texture->ceiling = dup_trimmed(line + 2);
 	if (ft_strnstr(line, "F", 1))
-		map->texture->floor = line + 2;
+		map->texture->floor = dup_trimmed(line + 2);
 }
 
 void	get_map_line(t_map *map, char *line, int *row)

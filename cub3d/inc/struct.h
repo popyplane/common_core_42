@@ -13,21 +13,7 @@
 #ifndef STRUCT_H
 # define STRUCT_H
 
-typedef struct s_img
-{
-    void	*mlx_img;
-    char	*addr;
-    int		bpp;
-    int		line_len;
-    int		endian;
-}	t_img;
-
-typedef struct s_mlx
-{
-	void	*mlx_ptr;
-	void	*win_ptr;
-
-}	t_mlx;
+/* mlx_t and mlx_image_t come from MLX42.h (included before this header) */
 
 typedef struct s_texture
 {
@@ -47,11 +33,35 @@ typedef struct s_map
 	t_texture	*texture;
 }	t_map;
 
+typedef struct s_player
+{
+	double	x;
+	double	y;
+	double	dir_x;
+	double	dir_y;
+	double	plane_x;
+	double	plane_y;
+}	t_player;
+
+typedef struct s_keys
+{
+	bool	w;
+	bool	a;
+	bool	s;
+	bool	d;
+	bool	left;
+	bool	right;
+}	t_keys;
+
 typedef struct s_game
 {
-	t_mlx	*mlx;
-	t_map	*map;
-	t_img	img;
+	mlx_t		*mlx;
+	mlx_image_t	*img;
+	t_map		*map;
+	t_player	*player;
+	t_keys		keys;
+	int			floor_color;
+	int			ceiling_color;
 }	t_game;
 
 #endif

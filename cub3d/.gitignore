@@ -1,0 +1,6 @@
+*.o
+cub3d
+mlx/build/
+libft/*.a
+libft/*.o
+.DS_Store

@@ -71,16 +71,23 @@ RMFLAG = -f
 
 UNAME = $(shell uname)
 
+# MLX42 (github.com/codam-coding-college/MLX42), built from vendored source
+# via CMake. Replaced the classic X11/Cocoa minilibx fork this project
+# started with: that one never actually presented frames to the screen on
+# modern macOS (its render loop called glFlush() instead of swapping the
+# compositor buffer), and MLX42 is actively maintained specifically to
+# avoid this class of platform bug.
 ifeq ($(UNAME), Linux)
-	INCLUDES = -I/usr/include -Imlx -Iinc
-	MLX_FLAGS = -Lmlx -lmlx -L/usr/lib/X11 -lXext -lX11 -lm
+	INCLUDES = -Imlx/include -Iinc
+	MLX_FLAGS = -Lmlx/build -lmlx42 -lglfw -lGL -lm -ldl -lpthread
 else ifeq ($(UNAME), Darwin)
-	INCLUDES = -I/opt/X11/include -Imlx -Iinc
-	MLX_FLAGS = -Lmlx -lmlx -L/usr/X11/lib -lXext -lX11 -framework OpenGL -framework AppKit
+	GLFW_PREFIX = $(shell brew --prefix glfw 2>/dev/null)
+	INCLUDES = -Imlx/include -Iinc -I$(GLFW_PREFIX)/include
+	MLX_FLAGS = -Lmlx/build -lmlx42 -L$(GLFW_PREFIX)/lib -lglfw -framework Cocoa -framework OpenGL -framework IOKit -lm
 endif
 
 MLX_DIR = ./mlx
-MLX_LIB = $(MLX_DIR)/libmlx_$(UNAME).a
+MLX_LIB = $(MLX_DIR)/build/libmlx42.a
 
 LIBFT_DIR = ./libft
 LIBFT_LIB = $(LIBFT_DIR)/libft.a
@@ -94,6 +101,8 @@ SRCS_FILES	=	display_2d.c \
 				img.c \
 				init.c \
 				main.c \
+				player.c \
+				raycast.c \
 				render.c
 
 INC_FILES	= cub3d.h
@@ -112,7 +121,8 @@ $(NAME): $(OBJS)
 	$(CC) $(CFLAGS) -o $(NAME) $(OBJS) $(MLX_FLAGS) $(LIBFT_FLAGS)
 
 $(MLX_LIB):
-	@make -C $(MLX_DIR)
+	@cmake -B $(MLX_DIR)/build $(MLX_DIR) -DGLFW_FETCH=OFF
+	@cmake --build $(MLX_DIR)/build -j4
 
 $(LIBFT_LIB):
 	@make -C $(LIBFT_DIR)
@@ -122,7 +132,7 @@ clean:
 
 fclean: clean
 	$(RM) $(RMFLAG) $(NAME)
-	if [ -d "./mlx" ]; then make -C $(MLX_DIR) clean; fi
+	if [ -d "$(MLX_DIR)/build" ]; then rm -rf $(MLX_DIR)/build; fi
 	if [ -d "./libft" ]; then make -C $(LIBFT_DIR) fclean; fi
 
 re: fclean all

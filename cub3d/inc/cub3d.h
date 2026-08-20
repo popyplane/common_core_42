@@ -17,12 +17,17 @@
 # include <stdbool.h>
 # include <stdlib.h>
 # include <fcntl.h>
+# include <math.h>
 # include "../libft/libft.h"
 
 /*********** minilibx ***************/
-# include "../mlx/mlx.h"
-# include <X11/X.h>
-# include <X11/keysym.h>
+/* Switched from the classic X11/Cocoa minilibx fork to MLX42
+   (codam-coding-college/MLX42): the old fork's render loop never actually
+   presented frames to the screen on modern macOS (see README), and after
+   fixing that it still had further platform issues. MLX42 is actively
+   maintained specifically to avoid this class of bug. Its key constants
+   (MLX_KEY_*) are used directly, no more manual keycode table needed. */
+# include "../mlx/include/MLX42/MLX42.h"
 
 /************* inc ******************/
 # include "struct.h"
@@ -47,25 +52,30 @@ void    ft_error(char *msg);
 void	*garbage_collector(void *ptr, bool clean);
 
 /************* hooks.c *************/
-int	handle_no_event(void *data);
-int	handle_input(int keysym, t_mlx *data);
-int	handle_keypress(int keysym, t_mlx *data);
-int	handle_keyrelease(int keysym, void *data);
+void	handle_key(mlx_key_data_t keydata, void *param);
+void	handle_close(void *param);
 
 /************* img.c *************/
-void	img_pix_put(t_img *img, int x, int y, int color);
+void	img_pix_put(mlx_image_t *img, int x, int y, int color);
 
 /********** display_2d.c *************/
 void	draw_tile(int x, int y, int color, t_game *data);
 void	draw_map(t_game *data);
 
+/************* player.c *************/
+void	init_player(t_game *game);
+void	move_player(t_game *game);
+bool	is_walkable(t_game *game, int x, int y);
+int		parse_color(char *s);
+
+/************* raycast.c ************/
+void	cast_rays(t_game *game);
+
 /********** render.c *************/
-int render_2d(t_game *data);
+void	render_frame(void *param);
 
 /********** init.c *************/
 t_map	*init_map(void);
-t_mlx	*init_mlx(void);
-t_img	*init_img(void);
 t_game	*init_game(void);
 
 

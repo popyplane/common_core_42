@@ -29,33 +29,6 @@ t_map	*init_map(void)
 	return (map);
 }
 
-t_mlx	*init_mlx(void)
-{
-	t_mlx	*mlx;
-
-	mlx = malloc(sizeof(t_mlx));
-	if (!mlx)
-		ft_error("[init_mlx(...)] : t_mlx malloc failed");
-	garbage_collector(mlx, false);
-	return (mlx);
-}
-
-t_img	*init_img(void)
-{
-	t_img	*image;
-
-	image = malloc(sizeof(t_img));
-	if (!image)
-		ft_error("[init_img(...)] : t_img malloc failed");
-	garbage_collector(image, false);
-	image->mlx_img = NULL;
-	image->addr = NULL;
-	image->bpp = 0;
-	image->line_len = 0;
-	image->endian = 0;
-	return (image);
-}
-
 t_game	*init_game(void)
 {
 	t_game	*game;
@@ -64,8 +37,10 @@ t_game	*init_game(void)
 	if (!game)
 		ft_error("[init_game(...)] : t_game malloc failed");
 	garbage_collector(game, false);
+	game->mlx = NULL;
+	game->img = NULL;
+	game->player = NULL;
+	ft_bzero(&game->keys, sizeof(t_keys));
 	game->map = init_map();
-	game->mlx = init_mlx();
-	game->img = init_img();
 	return (game);
 }

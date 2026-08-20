@@ -20,7 +20,6 @@ t_map	*get_map(char *path)
 	t_map	*map;
 
 	map = init_map();
-	map->height++;
 	get_map_dim(map, path);
 	map->map = malloc(sizeof(char *) * map->height);
 	if (!map->map)
