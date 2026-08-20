@@ -5,7 +5,7 @@ Base::~Base()
 
 Base    *generate()
 {
-	std::srand(std::ctime(0));
+	std::srand(static_cast<unsigned int>(std::time(0)));
 	int random = std::rand() % 3;
 
 	switch (random)
@@ -34,12 +34,6 @@ void    identify(Base *p)
 
 void    identify(Base &p)
 {
-	if (!p)
-	{
-		cout << "&p is NULL" << endl;
-		return;
-	}
-	
 	try
 	{
 		(void)dynamic_cast<A&>(p);

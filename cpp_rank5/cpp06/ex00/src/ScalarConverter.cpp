@@ -13,7 +13,7 @@ ScalarConverter::~ScalarConverter()
 
 ScalarConverter	&ScalarConverter::operator=(const ScalarConverter &src)
 {
-	*this = src;
+	(void)src;
 	return (*this);
 }
 

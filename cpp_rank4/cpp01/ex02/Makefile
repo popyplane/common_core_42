@@ -11,7 +11,7 @@ SRCS			=	main.cpp
 
 ############## OBJS Dirs & Files #############
 OBJ_DIR			=	.obj
-OBJS			=	$(SRCS:%.c=$(OBJ_DIR)/%.o)
+OBJS			=	$(SRCS:%.cpp=$(OBJ_DIR)/%.o)
 
 
 ############## Recipes #######################
@@ -22,7 +22,7 @@ $(NAME): $(OBJS)
 	$(CXX) $(OBJS) -o $(NAME)
 	@echo "\033[32m$(NAME) is ready to use\033[0m"
 
-$(OBJ_DIR)/%.o:%.c
+$(OBJ_DIR)/%.o:%.cpp
 	mkdir -p $(OBJ_DIR)
 	$(CXX) $(FLAGS) $(STD_FLAG) -c -o $@ $<
 

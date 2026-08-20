@@ -31,8 +31,8 @@ class Form {
 
 		// getters
 		const string	getName() const;
-		const int		getSignGR() const;
-		const int		getExecGR() const;
+		int				getSignGR() const;
+		int				getExecGR() const;
 		bool			isSigned() const;
 
 		// member functions

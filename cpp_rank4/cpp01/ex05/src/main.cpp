@@ -1,14 +1,15 @@
 #include "../inc/Harl.hpp"
 
-int main()
+int main(int argc, char **argv)
 {
     Harl    robot;
 
-    robot.complain("DEBUG");
-    robot.complain("INFO");
-    robot.complain("WARNING");
-    robot.complain("ERROR");
-    robot.complain("TEST");
+    if (argc != 2)
+    {
+        cout << "Usage: ./harl [DEBUG|INFO|WARNING|ERROR]" << endl;
+        return (1);
+    }
+    robot.complain(argv[1]);
 
     return (0);
 }

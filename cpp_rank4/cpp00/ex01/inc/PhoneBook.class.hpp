@@ -9,7 +9,7 @@ class PhoneBook
 {
 	private:
 
-		int				_nbContacts = -1;
+		int				_nbContacts;
 		Contact			_contactList[8];
 
 	public:
@@ -63,7 +63,7 @@ void		PhoneBook::displayPhoneBook(void) const
 		this->_contactList[i].displayShortContact(i);
 }
 
-PhoneBook::PhoneBook(void)
+PhoneBook::PhoneBook(void) : _nbContacts(-1)
 {
 	PhoneBook::_nbContacts++;
 }

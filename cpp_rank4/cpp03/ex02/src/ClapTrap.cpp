@@ -12,13 +12,11 @@
 
 #include "../inc/ClapTrap.hpp"
 
-ClapTrap::ClapTrap( string name )
+ClapTrap::ClapTrap( string name ) : _name(name), _hitPoints(10), _energyPoints(10), _attackDamage(0)
 {
 	cout
 		<< "## ClapTrap constructor called to create " << name
 		<< endl;
-	this->_name = name;
-
 }
 
 ClapTrap::ClapTrap( ClapTrap const & src )

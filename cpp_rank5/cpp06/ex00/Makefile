@@ -20,7 +20,7 @@ SRCS			=	$(addprefix $(SRCS_DIR), $(SRCS_FD))
 
 ############## OBJS Dirs & Files #############
 OBJ_DIR			=	.obj
-OBJS			=	$(SRCS:$(SRCS_DIR)/%.c=$(OBJ_DIR)/%.o)
+OBJS			=	$(SRCS:$(SRCS_DIR)%.cpp=$(OBJ_DIR)/%.o)
 
 
 ############## Recipes #######################
@@ -31,7 +31,7 @@ $(NAME): $(OBJS)
 	$(CXX) $(FLAGS) $(STD_FLAG) $(OBJS) -o $(NAME)
 	@echo "\033[32m$(NAME) is ready to use\033[0m"
 
-$(OBJ_DIR)/%.o:$(SRCS_DIR)/%.c
+$(OBJ_DIR)/%.o:$(SRCS_DIR)%.cpp
 	mkdir -p $(OBJ_DIR)
 	$(CXX) $(FLAGS) $(STD_FLAG) -c -o $@ $<
 

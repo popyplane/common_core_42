@@ -31,14 +31,14 @@ const string	AForm::getName() const
 	return (this->_name);
 }
 
-const int	AForm::getSignGR() const
+int	AForm::getSignGR() const
 {
 	return (this->_signGradeRequired);
 }
 
-const int	AForm::getExecGR() const
+int	AForm::getExecGR() const
 {
-	return (this->_signGradeRequired);
+	return (this->_execGradeRequired);
 }
 
 bool	AForm::isSigned() const

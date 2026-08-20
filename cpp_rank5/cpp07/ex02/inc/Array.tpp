@@ -26,7 +26,7 @@ Array<T>   &Array<T>::operator=(const Array &src)
     {
         delete[] _data;
         _size = src._size;
-        _data = new T(_size);
+        _data = new T[_size];
         for (unsigned int i = 0; i < _size; i++)
             _data[i] = src._data[i];
     }

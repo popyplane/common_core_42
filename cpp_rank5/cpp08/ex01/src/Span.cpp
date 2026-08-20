@@ -63,7 +63,7 @@ void    Span::evaluateMinSpan(std::multiset<int>::iterator it, int n)
 
 void    Span::evaluateSpan(int num1, int num2)
 {
-	int span = calculateSpan(num1, num2);
+	unsigned int span = calculateSpan(num1, num2);
 	
 	if (span < _minSpan)
 		_minSpan = span;
