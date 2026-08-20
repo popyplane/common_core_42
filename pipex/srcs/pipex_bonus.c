@@ -45,6 +45,7 @@ int	main(int argc, char **argv, char **envp)
 	int	filein;
 	int	fileout;
 	int	i;
+	int	j;
 
 	if (argc >= 5)
 	{
@@ -60,11 +61,13 @@ int	main(int argc, char **argv, char **envp)
 			dup2(filein, STDIN_FILENO);
 		}
 		fileout = open_file(argv[argc - 1], 3 - i);
-		while (i < argc - 2)
-			child_process(argv[++i], envp);
+		j = i - 1;
+		while (j < argc - 3)
+			child_process(argv[++j], envp);
 		dup2(fileout, STDOUT_FILENO);
 		execute(argv[argc - 2], envp);
 	}
 	else
 		ft_putstr_fd("\033[31mError: Bad arguments\n\e[0m", 2);
+	return (0);
 }

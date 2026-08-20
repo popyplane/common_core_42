@@ -35,7 +35,6 @@ int	get_next_line(char **line)
 	buffer[i] = '\n';
 	buffer[++i] = '\0';
 	*line = buffer;
-	free(buffer);
 	return (reader);
 }
 
@@ -57,8 +56,12 @@ void	here_doc(char **argv, int argc)
 		{
 			if (ft_strncmp(line, argv[2], ft_strlen(argv[2])) == 0
 				&& ft_strlen(line) == ft_strlen(argv[2]) + 1)
+			{
+				free(line);
 				exit(EXIT_SUCCESS);
+			}
 			ft_putstr_fd(line, fd[1]);
+			free(line);
 		}
 	}
 	else
