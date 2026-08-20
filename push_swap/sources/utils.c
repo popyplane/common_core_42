@@ -20,8 +20,26 @@ t_list	*create_list(int argc, char **argv)
 	head = ft_lstnew(ft_atoi(argv[1]));
 	i = 1;
 	while (++i < argc)
-		ft_lstadd_back(&head, ft_lstnew(ft_atoi(argv[i])));  
+		ft_lstadd_back(&head, ft_lstnew(ft_atoi(argv[i])));
 	return (head);
+}
+
+static int	is_valid_arg(char *s)
+{
+	int	i;
+
+	i = 0;
+	if (s[i] == '-' || s[i] == '+')
+		i++;
+	if (!s[i])
+		return (0);
+	while (s[i])
+	{
+		if (s[i] < '0' || s[i] > '9')
+			return (0);
+		i++;
+	}
+	return (1);
 }
 
 int	check_args(int argc, char **argv)
@@ -34,10 +52,8 @@ int	check_args(int argc, char **argv)
 	a = 0;
 	while (++a < argc)
 	{
-		b = -1;
-		while (argv[a][++b])
-			if (argv[a][b] != '-' && (argv[a][b] < '0' || argv[a][b] > '9'))
-				return (ft_putstr_fd("Error\n", 2), 0);
+		if (!is_valid_arg(argv[a]))
+			return (ft_putstr_fd("Error\n", 2), 0);
 		b = 0;
 		while (++b < argc)
 			if (a != b && ft_atoi(argv[a]) == ft_atoi(argv[b]))

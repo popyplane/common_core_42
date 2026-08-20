@@ -25,14 +25,9 @@ void	swap(t_list **a, char *str)
 void	push(t_list **a, t_list **b, char *str)
 {
 	t_list	*tmp;
-	
-	if (!b)
-	{
-		*b = ft_lstnew((*a)->v);
-		tmp = (*a)->n;
-		free(*a);
-		*a = tmp;
-	}
+
+	if (!*a)
+		return ;
 	tmp = (*a)->n;
 	(*a)->n = *b;
 	*b = *a;
