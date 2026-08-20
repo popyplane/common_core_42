@@ -13,13 +13,12 @@
 #ifndef HOOKS_H
 # define HOOKS_H
 
-# include <X11/keysym.h>
+# include "MLX42/MLX42.h"
 # include "free.h"
 # include "structs.h"
-# include "minilibx-linux/mlx.h"
 
-void	ft_handle_move(int keysym, t_mlx *mlx);
-int		ft_on_keypress(int keysym, t_mlx *mlx);
-int		ft_on_close(t_mlx *mlx);
+void	ft_handle_move(mlx_key_data_t keydata, t_mlx *mlx);
+void	ft_on_keypress(mlx_key_data_t keydata, void *param);
+void	ft_on_close(void *param);
 
 #endif

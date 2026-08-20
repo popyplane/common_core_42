@@ -15,7 +15,6 @@
 #include <sys/stat.h>
 #include <fcntl.h>
 #include <stdlib.h>
-#include "minilibx-linux/mlx.h"
 #include "error.h"
 #include "free.h"
 #include "map.h"

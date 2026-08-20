@@ -13,16 +13,16 @@
 #ifndef STRUCTS_H
 # define STRUCTS_H
 
+# include <stdbool.h>
+# include "MLX42/MLX42.h"
+
 # define WALL '1'
 # define FLOOR '0'
 # define COLL 'C'
 # define EXIT 'E'
 # define PLAYER 'P'
 
-typedef enum s_bool{
-	false,
-	true
-}	t_bool;
+typedef bool	t_bool;
 
 typedef struct s_position{
 	int	x;
@@ -45,10 +45,12 @@ typedef struct s_map{
 }	t_map;
 
 typedef struct s_mlx{
-	void	*mlx_ptr;
-	void	*win_ptr;
-	void	*textures[5];
-	t_map	*map;
+	mlx_t			*mlx;
+	mlx_image_t		*textures[5];
+	mlx_image_t		*score_img;
+	mlx_instance_t	*player_instance;
+	mlx_instance_t	***coll_instances;
+	t_map			*map;
 }	t_mlx;
 
 #endif

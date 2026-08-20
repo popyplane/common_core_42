@@ -13,8 +13,7 @@
 #ifndef DISPLAY_H
 # define DISPLAY_H
 
-# include "minilibx-linux/mlx.h"
-# include "display.h"
+# include "MLX42/MLX42.h"
 # include "error.h"
 # include "strings.h"
 # include "structs.h"
@@ -22,15 +21,12 @@
 # include "hooks.h"
 # include "utils.h"
 # include <stdlib.h>
-# include <X11/X.h>
-# include <X11/keysym.h>
 
 # define SCORE_OFFSET 50
 
-void	render_assets(t_mlx *mlx);
-void	render_bg(t_mlx *mlx);
+void	build_bg(t_mlx *mlx);
+void	build_assets(t_mlx *mlx);
 void	display_score(t_mlx *mlx);
-int		ft_on_render(t_mlx *mlx);
 void	init_window(t_mlx *mlx);
 
 #endif

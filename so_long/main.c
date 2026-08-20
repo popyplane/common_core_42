@@ -24,6 +24,9 @@ t_mlx	*ft_init(char *map_name)
 	mlx = malloc(sizeof(t_mlx));
 	if (!mlx)
 		ft_error(MALLOC_FAILURE);
+	mlx->mlx = NULL;
+	mlx->score_img = NULL;
+	mlx->coll_instances = NULL;
 	mlx->map = init_map(map_name);
 	return (mlx);
 }

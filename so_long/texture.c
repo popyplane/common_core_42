@@ -11,16 +11,16 @@
 /* ************************************************************************** */
 
 #include <stdlib.h>
-#include "minilibx-linux/mlx.h"
+#include "MLX42/MLX42.h"
 #include "texture.h"
 #include "error.h"
 #include "structs.h"
 
 t_bool	load_textures(t_mlx *mlx)
 {
-	char	*texture_map[5];
-	int		size;
-	int		i;
+	char			*texture_map[5];
+	mlx_texture_t	*png;
+	int				i;
 
 	texture_map[0] = FLOOR_PATH;
 	texture_map[1] = WALL_PATH;
@@ -30,12 +30,15 @@ t_bool	load_textures(t_mlx *mlx)
 	i = -1;
 	while (++i < 5)
 	{
-		mlx->textures[i] = mlx_xpm_file_to_image(
-				mlx->mlx_ptr, texture_map[i], &size, &size);
-		if (!mlx->textures[i])
+		png = mlx_load_png(texture_map[i]);
+		if (png)
+			mlx->textures[i] = mlx_texture_to_image(mlx->mlx, png);
+		if (png)
+			mlx_delete_texture(png);
+		if (!png || !mlx->textures[i])
 		{
 			while (--i >= 0)
-				mlx_destroy_image(mlx->mlx_ptr, mlx->textures[i]);
+				mlx_delete_image(mlx->mlx, mlx->textures[i]);
 			return (false);
 		}
 	}

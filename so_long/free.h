@@ -14,7 +14,7 @@
 # define FREE_H
 
 # include <stdlib.h>
-# include "minilibx-linux/mlx.h"
+# include "MLX42/MLX42.h"
 # include "structs.h"
 
 void	free_array(char	**array);

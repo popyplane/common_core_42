@@ -11,7 +11,7 @@
 /* ************************************************************************** */
 
 #include <stdlib.h>
-#include "minilibx-linux/mlx.h"
+#include "MLX42/MLX42.h"
 #include "structs.h"
 
 void	free_array(char	**array)
@@ -35,18 +35,19 @@ void	free_map(t_map *map)
 
 void	free_mlx(t_mlx *mlx)
 {
-	int	i;
+	int	y;
+	int	height;
 
+	if (mlx->coll_instances)
+	{
+		height = mlx->map->map_size->y;
+		y = -1;
+		while (++y < height)
+			free(mlx->coll_instances[y]);
+		free(mlx->coll_instances);
+	}
 	free_map(mlx->map);
 	free(mlx->map);
-	i = -1;
-	while (++i < 5)
-		mlx_destroy_image(mlx->mlx_ptr, mlx->textures[i]);
-	if (mlx->mlx_ptr)
-	{
-		if (mlx->win_ptr)
-			mlx_destroy_window(mlx->mlx_ptr, mlx->win_ptr);
-		mlx_destroy_display(mlx->mlx_ptr);
-		free(mlx->mlx_ptr);
-	}
+	if (mlx->mlx)
+		mlx_terminate(mlx->mlx);
 }
