@@ -20,7 +20,7 @@
 */
 void			init_data(t_data *data);
 t_bool			parse_input(int argc, char **argv, t_data *data);
-void			init_philo(t_data *data, pthread_mutex_t *fork);
+void			init_philo(t_data *data);
 
 /**
  * ----- actions.c -----

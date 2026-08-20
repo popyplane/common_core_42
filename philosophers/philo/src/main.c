@@ -15,21 +15,21 @@
 
 int	main(int argc, char **argv)
 {
-	t_data			data;
-	pthread_mutex_t	*forks;
+	t_data	data;
 
 	init_data(&data);
 	if (!parse_input(argc, argv, &data))
 		return (err(EARGS));
-	forks = malloc((data.nb_of_philo) * sizeof(pthread_mutex_t));
-	if (!forks)
+	data.forks = malloc((data.nb_of_philo) * sizeof(pthread_mutex_t));
+	if (!data.forks)
 		return (err(EUNKN), 1);
 	data.philo = malloc((data.nb_of_philo) * sizeof(t_philo));
 	if (!data.philo)
 		return (err(EUNKN), 1);
-	init_philo(&data, forks);
+	init_philo(&data);
 	if (!spawn_threads(&data))
 		return (err(ETHRD));
-	free(forks);
+	free(data.forks);
+	free(data.philo);
 	return (0);
 }

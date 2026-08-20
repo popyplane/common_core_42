@@ -25,7 +25,7 @@ t_bool	spawn_threads(t_data *data)
 	i = -1;
 	while (++i < data->nb_of_philo)
 	{
-		if (pthread_create(&data->philo->thread, NULL,
+		if (pthread_create(&data->philo[i].thread, NULL,
 				&redirect_philo, &data->philo[i]))
 			return (false);
 	}
@@ -48,7 +48,7 @@ static t_bool	init_mutexes(t_data *data)
 	i = -1;
 	while (++i < data->nb_of_philo)
 	{
-		if (pthread_mutex_init(&data->philo[i].fork_l, NULL) != 0)
+		if (pthread_mutex_init(&data->forks[i], NULL) != 0)
 			return (false);
 	}
 	if (pthread_mutex_init(&data->data_mutex, NULL) != 0)
@@ -81,7 +81,7 @@ static void	ft_destroy_threads(t_data *data, t_philo *philos)
 		pthread_join(philos[i].thread, NULL);
 	i = -1;
 	while (++i < data->nb_of_philo)
-		pthread_mutex_destroy(&philos[i].fork_l);
+		pthread_mutex_destroy(&data->forks[i]);
 	pthread_mutex_destroy(&data->data_mutex);
 	pthread_mutex_destroy(&data->meal_mutex);
 	pthread_mutex_destroy(&data->print_mutex);

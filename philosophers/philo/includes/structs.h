@@ -31,8 +31,8 @@ typedef struct s_philo
 	pthread_t		thread;
 	t_data			*data;
 	unsigned long	last_meal_time_ms;
-	pthread_mutex_t	fork_r;
-	pthread_mutex_t	fork_l;
+	pthread_mutex_t	*fork_r;
+	pthread_mutex_t	*fork_l;
 }	t_philo;
 
 typedef struct s_data
@@ -44,6 +44,7 @@ typedef struct s_data
 	int 			max_meal;
 	unsigned long	start_time_ms;
 	t_philo			*philo;
+	pthread_mutex_t	*forks;
 	t_bool			is_game_over;
 	t_bool			is_ready;
 	pthread_mutex_t	print_mutex;

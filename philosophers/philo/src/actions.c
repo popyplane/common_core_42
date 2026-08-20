@@ -58,14 +58,14 @@ void	ft_eat(t_philo *philo)
 	eat_time = philo->data->time_to_eat_ms;
 	pthread_mutex_unlock(&philo->data->data_mutex);
 	if (philo->id & 1)
-		pthread_mutex_lock(&philo->fork_r);
+		pthread_mutex_lock(philo->fork_r);
 	else
-		pthread_mutex_lock(&philo->fork_l);
+		pthread_mutex_lock(philo->fork_l);
 	ft_print(philo, "has taken a fork", eat_time);
 	if (philo->id & 1)
-		pthread_mutex_lock(&philo->fork_l);
+		pthread_mutex_lock(philo->fork_l);
 	else
-		pthread_mutex_lock(&philo->fork_r);
+		pthread_mutex_lock(philo->fork_r);
 	ft_print(philo, "has taken a fork", eat_time);
 	ft_print(philo, "is eating", eat_time);
 	pthread_mutex_lock(&philo->data->meal_mutex);
@@ -73,8 +73,8 @@ void	ft_eat(t_philo *philo)
 	philo->eat_count++;
 	pthread_mutex_unlock(&philo->data->meal_mutex);
 	ft_usleep(eat_time);
-	pthread_mutex_unlock(&philo->fork_l);
-	pthread_mutex_unlock(&philo->fork_r);
+	pthread_mutex_unlock(philo->fork_l);
+	pthread_mutex_unlock(philo->fork_r);
 }
 
 void	ft_sleep_and_think(t_philo *philo)

@@ -44,7 +44,7 @@ t_bool	parse_input(int argc, char **argv, t_data *data)
 	return (true);
 }
 
-void	init_philo(t_data *data, pthread_mutex_t *fork)
+void	init_philo(t_data *data)
 {
 	int	i;
 
@@ -54,7 +54,7 @@ void	init_philo(t_data *data, pthread_mutex_t *fork)
 		data->philo[i].data = data;
 		data->philo[i].id = i + 1;
 		data->philo[i].eat_count = 0;
-		data->philo[i].fork_l = fork[i];
-		data->philo[i].fork_r = fork[(i + 1) % data->nb_of_philo];
+		data->philo[i].fork_l = &data->forks[i];
+		data->philo[i].fork_r = &data->forks[(i + 1) % data->nb_of_philo];
 	}
 }
