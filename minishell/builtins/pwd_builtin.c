@@ -1,23 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strlen.c                                        :+:      :+:    :+:   */
+/*   pwd_builtin.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mafoulon <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: baptistevieilhescaze <baptistevieilhesc    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/11/07 10:54:30 by mafoulon          #+#    #+#             */
-/*   Updated: 2022/11/08 13:58:20 by mafoulon         ###   ########.fr       */
+/*   Created: 2023/12/23 00:02:29 by baptistevie       #+#    #+#             */
+/*   Updated: 2023/12/23 00:06:40 by baptistevie      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "builtins.h"
 
-size_t	ft_strlen(const char *str)
+t_err_no	pwd_builtin(void)
 {
-	size_t	i;
+	char	*cwd;
 
-	i = 0;
-	while (str[i])
-		i++;
-	return (i);
+	cwd = NULL;
+	cwd = getcwd(cwd, 0);
+	if (!cwd)
+		return (ENO_GENERAL);
+	ft_putstr_fd(cwd, 1);
+	ft_putstr_fd("\n", 1);
+	return (ENO_SUCCESS);
 }

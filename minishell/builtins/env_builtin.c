@@ -1,23 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strlen.c                                        :+:      :+:    :+:   */
+/*   env_builtin.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mafoulon <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: bvieilhe <bvieilhe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/11/07 10:54:30 by mafoulon          #+#    #+#             */
-/*   Updated: 2022/11/08 13:58:20 by mafoulon         ###   ########.fr       */
+/*   Created: 2023/12/20 15:41:13 by bvieilhe          #+#    #+#             */
+/*   Updated: 2023/12/20 16:11:30 by bvieilhe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "builtins.h"
 
-size_t	ft_strlen(const char *str)
+t_err_no	env_builtin(void)
 {
-	size_t	i;
+	t_env	*list;
 
-	i = 0;
-	while (str[i])
-		i++;
-	return (i);
+	list = g_minishell.env_lst;
+	while (list)
+	{
+		if (list->value != NULL)
+			printf("%s=%s\n", list->key, list->value);
+		list = list->next;
+	}
+	return (ENO_SUCCESS);
 }
